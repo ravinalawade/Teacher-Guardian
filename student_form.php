@@ -212,7 +212,7 @@
                 <p>Roll_no: <?php echo $value["Roll_no"]; ?></p>
                 <p>Batch: <?php echo $value["Batch"]; ?></p>
 
-                <h1>Skillset</h1>
+                <h1>Skillsets</h1>
                 Type of Skill:
                 <input type="radio" name="skilltype" <?php if (isset($skilltype) && $skilltype=="T") echo "checked";?> value="T">Technical
                 <input type="radio" name="skilltype" <?php if (isset($skilltype) && $skilltype=="NT") echo "checked";?> value="NT">Non Technical
