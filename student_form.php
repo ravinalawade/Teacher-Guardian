@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Student Form</title>
+        <title>Student Login Form</title>
         <style>
             body{
                 background-color: aquamarine
