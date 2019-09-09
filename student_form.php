@@ -177,7 +177,7 @@
             <h1>Student Profile</h1>
         </div>
         <div class="personal">
-            <h1>Personal Details</h1>
+            <h1>Personal Student Details</h1>
             <form method="post" action="student_form.php">
                 First name:
                 <input type="text" name="firstname" value="<?php echo $value["First"]; ?>">
