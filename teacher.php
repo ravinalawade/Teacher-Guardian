@@ -124,10 +124,6 @@ mysqli_close($conn);
                     <input type="submit" name="submit">
     
                 </form>
-
-
-
-
             </div>
         </div>
     </div>
