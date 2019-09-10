@@ -49,7 +49,6 @@
                         <th>Last Name</th>
                         <th>Date Of birth</th>
                         <th>Email</th>
-                        <th>Contact</th>
                         <th>Role</th>
                         <th>Year</th>
                         <th>Division</th>
