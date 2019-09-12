@@ -144,7 +144,7 @@
             </table>
         </div>
         <?php
-            $pid = $fname = $mname = $lname = $date = $email = $role = $year = $div = $batch = "";
+            //$pid = $fname = $mname = $lname = $date = $email = $role = $year = $div = $batch = "";
             if($_SERVER["REQUEST_METHOD"]=="POST"){
                 $pid = (int)test_input($_POST["pid"]);
                 $fname = test_input($_POST["first"]);
@@ -156,18 +156,21 @@
                 $year = (int)test_input($_POST["year"]);
                 $div = test_input($_POST["div"]);
                 $batch = (int)test_input($_POST["batch"]);
-            }
+            
 
-            $q3 = "insert into professor (professor_id, First, Middle, Last, Date_of_Birth, Role, Year, Division, Batch) 
-                    values ($pid, '$fname', '$mname', '$lname', $date, '$email', '$role', $year, '$div', $batch)";
+            $q3 = "insert into professor values ($pid, '$fname', '$mname', '$lname', 01-01-2000, '$role', $year, '$div', $batch)";
             mysqli_query($conn, $q3);
+            $q4 = "insert into professor_email values ($pid, '$email')";
+            mysqli_query($conn, $q4);
+            mysqli_close($conn);
+            }
 
             function test_input($data) {
                 $data = trim($data);
                 $data = stripslashes($data);
                 $data = htmlspecialchars($data);
                 return $data;
-              }
+            }
         ?>   
     </body>
 </html>
