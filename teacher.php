@@ -80,14 +80,14 @@
                         <th>Division</th>
                         <th>Batch</th>
                 </tr>';
-                $rows=mysqli_fetch_array($classstu,MYSQLI_ASSOC);
+                //$rows=mysqli_fetch_assoc($classstu);
                 //print_r(mysqli_fetch_array($classstu));
-              while($rows=mysqli_fetch_array($classstu)){
+              while($rows=mysqli_fetch_assoc($classstu)){
                 //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                 echo('
                 <tr>
 
-                    <th>'.$rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
+                    <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                     <th>'.$rows["Date_of_birth"].'</th>
                     <th>'.$rows["Study_year"]. '</th>
                     <th>'.$rows["Division"].'</th>
@@ -128,14 +128,14 @@
                         <th>Division</th>
                         <th>Batch</th>
                 </tr>';
-                $rows=mysqli_fetch_array($classstu,MYSQLI_ASSOC);
+                //$rows=mysqli_fetch_assoc($classstu);
                 //print_r(mysqli_fetch_array($classstu));
-              while($rows=mysqli_fetch_array($classstu)){
+              while($rows=mysqli_fetch_assoc($classstu)){
                 //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                 echo('
                 <tr>
 
-                    <th>'.$rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
+                    <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                     <th>'.$rows["Date_of_birth"].'</th>
                     <th>'.$rows["Study_year"]. '</th>
                     <th>'.$rows["Division"].'</th>
@@ -184,7 +184,7 @@ mysqli_close($conn);
         <p>Photo</p>
         <br>
         <a href='teacher.php?class=true;batch=false' class="btn btn-primary">class</a>
-        <a href='teacher.php?batch=true;class=true' class="btn btn-primary">batch</a>
+        <a href='teacher.php?batch=true;class=false' class="btn btn-primary">batch</a>
     </div>
 
 	<button type="button" style="position: absolute; left:500px;" class="btn btn-primary show-toast">Show Toast</button>
