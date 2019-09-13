@@ -24,6 +24,12 @@
                 });
             });
         </script>
+        <script>
+            $( "selector" ).datepicker({
+                altField : "#dob"
+                altFormat: "yyyy-mm-dd"
+            });
+        </script>
     </head>
     <body>
         <?php
@@ -54,7 +60,7 @@
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
             </div>
             <div class="toast-body">
-                <form action="admin_panel.php" method="POST">
+                <form action="data_entry.php" method="POST">
                     <div class="form-group">
                         <label for="pid">Professor ID: </label>
                         <input id="pid" type="number" class="form-control" name="pid" placeholder="ID" required>
@@ -89,11 +95,11 @@
                     </div>
                     <div class="form-group">
                         <label for="first">Division: </label>
-                        <input id="div" type="text" class="form-control" name="div" placeholder="DIV">
+                        <input id="div" type="text" class="form-control" name="div" placeholder="DIV" required>
                     </div>
                     <div class="form-group">
                         <label for="first">Batch: </label>
-                        <input id="batch" type="number" class="form-control" name="batch" placeholder="Batch" required>
+                        <input id="batch" type="number" class="form-control" name="batch" placeholder="Batch">
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                 </form>
@@ -142,35 +148,6 @@
                     ?>
                 </tbody>
             </table>
-        </div>
-        <?php
-            //$pid = $fname = $mname = $lname = $date = $email = $role = $year = $div = $batch = "";
-            if($_SERVER["REQUEST_METHOD"]=="POST"){
-                $pid = (int)test_input($_POST["pid"]);
-                $fname = test_input($_POST["first"]);
-                $mname = test_input($_POST["middle"]);
-                $lname = test_input($_POST["last"]);
-                $date = test_input($_POST["dob"]);
-                $email = test_input($_POST["email"]);
-                $role = test_input($_POST["role"]);
-                $year = (int)test_input($_POST["year"]);
-                $div = test_input($_POST["div"]);
-                $batch = (int)test_input($_POST["batch"]);
-            
-
-            $q3 = "insert into professor values ($pid, '$fname', '$mname', '$lname', 01-01-2000, '$role', $year, '$div', $batch)";
-            mysqli_query($conn, $q3);
-            $q4 = "insert into professor_email values ($pid, '$email')";
-            mysqli_query($conn, $q4);
-            mysqli_close($conn);
-            }
-
-            function test_input($data) {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
-        ?>   
+        </div>   
     </body>
 </html>
