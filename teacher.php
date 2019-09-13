@@ -33,6 +33,18 @@
         });
     });
 </script>
+<script>
+    $( "selector" ).datepicker({
+        altField : "#dob"
+        altFormat: "yyyy-mm-dd"
+    });
+
+    $(document).ready( function() {
+        $(document.body).on("click", "tr[data-href]", function () {
+            window.location.href = this.dataset.href;
+        });
+    });
+</script>
 </head>
 <body>
 
@@ -85,7 +97,7 @@
               while($rows=mysqli_fetch_assoc($classstu)){
                 //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                 echo('
-                <tr>
+                <tr data-href="student_info.html">
 
                     <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                     <th>'.$rows["Date_of_birth"].'</th>
@@ -158,18 +170,19 @@ $first=$_POST["firstname"];
 $middle=$_POST["middlename"];
 $last=$_POST["lastname"];
 $Mother=$_POST["mothername"];
+$date = $_POST["dob"];
 $sid=(int)$_POST["stu_id"];
-$soy=$_POST["syear"];
+$soy=(int)$_POST["syear"];
 $divi=$_POST["division"];
-$rno=$_POST["rno"];
-$ay=$_POST["ayear"];
+$rno=(int)$_POST["rno"];
+$ay=(int)$_POST["ayear"];
 $bat=$_POST["batch"];
     echo $first;
     echo $middle;
     echo $last;
 
     $q="insert into students (student_id,FIrst,Middle,Last,Mother,Date_of_birth,Blood_grp,Study_year,Admission_year,Division,Roll_no,Batch)
-values ($sid,'$first','$middle','$last','$Mother',13-03-2000,'A+',$soy,$ay,'$divi',$rno,$bat)";
+values ($sid,'$first','$middle','$last','$Mother', '$date','A+',$soy,$ay,'$divi',$rno,$bat)";
 $q1=mysqli_query($conn,$q);
 if($q1){
     echo "done";
@@ -200,25 +213,28 @@ mysqli_close($conn);
             <div>
                 <h1>Write Details</h1>
                 <form method="post" action="teacher.php">
-                    firstname:<input type="text" name="firstname">
-                    <br><br>
+                    Student_id:
+                    <input type="number" name="stu_id">
+                    <br>
+                    Firstname:<input type="text" name="firstname">
+                    <br>
                     Middle name:
                     <input type="text" name="middlename">
                     <br>
                     Last name:
                     <input type="text" name="lastname">
                     <br>
-                    Student_id:
-                    <input type="text" name="stu_id">
-                    <br>
                     Mother name:
                     <input type="text" name="mothername">
                     <br>
+                    Date ofBirth:
+                    <input type="date" name="dob">
+                    <br>
                     Study year:
-                    <input type="date" name="syear">
+                    <input type="number" name="syear">
                     <br>
                     Admission year:
-                    <input type="date" name="ayear">
+                    <input type="number" name="ayear">
                     <br>
                     Division:
                     <input type="text" name="division">

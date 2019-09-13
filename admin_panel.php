@@ -29,6 +29,12 @@
                 altField : "#dob"
                 altFormat: "yyyy-mm-dd"
             });
+
+            $(document).ready( function() {
+                $(document.body).on("click", "tr[data-href]", function () {
+                    window.location.href = this.dataset.href;
+                });
+            });
         </script>
     </head>
     <body>
@@ -131,7 +137,7 @@
                             $query2 = mysqli_query($conn, $q2);
                             $query2 = mysqli_fetch_array($query2);
                     ?>
-                    <tr>
+                    <tr data-href="https://www.google.com">
                         <td><?php echo $rows['professor_id']; ?></td>
                         <td><?php echo $rows['First']; ?></td>
                         <td><?php echo $rows['Middle']; ?></td>
