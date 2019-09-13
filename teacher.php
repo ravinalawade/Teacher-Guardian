@@ -19,6 +19,12 @@
                 overflow-x: hidden; /* Disable horizontal scroll */
                 padding-top: 20px;
             }
+
+    .det{
+        position: absolute;
+        left:550px;
+        top:100px;
+    }
 </style>
 <script>
     $(document).ready(function(){
@@ -44,6 +50,108 @@
             else{
             echo "hello";
         }
+
+        function helloclass(){
+
+                    $servername="localhost";
+            //add below line in every file. It displays error for all sql querries.
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+            $conn = mysqli_connect($servername,"root","","computer_dept") ;
+
+            // Check connection
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+                    $Div='A';
+                    $query='select *
+                    from students where Division="A"
+                    ';
+                    $classstu=mysqli_query($conn,$query);
+
+                    echo'<table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:relative; ">
+            <tbody>
+                <tr>
+                <th colspan="5" style="text-align: center;">Details</th>
+                </tr>
+                <tr>
+                        <th>Name</th>
+                        <th>Date Of birth</th>
+                        <th>Year</th>
+                        <th>Division</th>
+                        <th>Batch</th>
+                </tr>';
+                $rows=mysqli_fetch_array($classstu,MYSQLI_ASSOC);
+                //print_r(mysqli_fetch_array($classstu));
+              while($rows=mysqli_fetch_array($classstu)){
+                //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
+                echo('
+                <tr>
+
+                    <th>'.$rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
+                    <th>'.$rows["Date_of_birth"].'</th>
+                    <th>'.$rows["Study_year"]. '</th>
+                    <th>'.$rows["Division"].'</th>
+                    <th>'.$rows["Batch"].'</th>
+                    <th>hello</th>
+                </tr>');
+            }
+                
+                //echo .$rows.;
+                //echo "Ravi";
+                }
+                
+        function hellobatch(){
+                                  $servername="localhost";
+            //add below line in every file. It displays error for all sql querries.
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+            $conn = mysqli_connect($servername,"root","","computer_dept") ;
+
+            // Check connection
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+                    $Div='A';
+                    $query='select *
+                    from students where Batch=3
+                    ';
+                    $classstu=mysqli_query($conn,$query);
+
+                    echo'<table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:relative; ">
+            <tbody>
+                <tr>
+                <th colspan="5" style="text-align: center;">Details</th>
+                </tr>
+                <tr>
+                        <th>Name</th>
+                        <th>Date Of birth</th>
+                        <th>Year</th>
+                        <th>Division</th>
+                        <th>Batch</th>
+                </tr>';
+                $rows=mysqli_fetch_array($classstu,MYSQLI_ASSOC);
+                //print_r(mysqli_fetch_array($classstu));
+              while($rows=mysqli_fetch_array($classstu)){
+                //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
+                echo('
+                <tr>
+
+                    <th>'.$rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
+                    <th>'.$rows["Date_of_birth"].'</th>
+                    <th>'.$rows["Study_year"]. '</th>
+                    <th>'.$rows["Division"].'</th>
+                    <th>'.$rows["Batch"].'</th>
+                    <th>hello</th>
+                </tr>');
+            }
+          }
+
+  if (isset($_GET['class']) ) {
+    helloclass();
+  }
+  if (isset($_GET['batch'])) {
+    hellobatch();
+  }
+
         if (!empty($_POST))
         {
 $first=$_POST["firstname"];
@@ -75,8 +183,8 @@ mysqli_close($conn);
     <div class="options">
         <p>Photo</p>
         <br>
-        <button>class</button>
-        <button>batch</button>
+        <a href='teacher.php?class=true;batch=false' class="btn btn-primary">class</a>
+        <a href='teacher.php?batch=true;class=true' class="btn btn-primary">batch</a>
     </div>
 
 	<button type="button" style="position: absolute; left:500px;" class="btn btn-primary show-toast">Show Toast</button>
