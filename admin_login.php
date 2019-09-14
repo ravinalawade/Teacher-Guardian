@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,7 +8,50 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<?php
+$servername="localhost";
+            //add below line in every file. It displays error for all sql querries.
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+            $conn = mysqli_connect($servername,"root","","computer_dept") ;
 
+            // Check connection
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+
+if (!empty($_POST))
+        {
+$username=$_POST['email'];
+$password=$_POST['pwd'];
+if($username=='admin1234@gmail.com' && $password==98765)
+{
+header("Location:admin_panel.php");
+}
+else{
+$q="select * from professor_email where Email_id='$username' and professor_id=$password";
+$q1=mysqli_query($conn,$q);
+$c=mysqli_num_rows($q1);
+$q2=array();
+$q2=mysqli_fetch_assoc($q1);
+$_SESSION["id"]=$password;
+$cb="select Division,Batch from professor where professor_id=$password";
+        $cb1=mysqli_query($conn,$cb);
+        $cb2=mysqli_fetch_assoc($cb1);
+        $_SESSION['Div']=$cb2['Division'];
+        $_SESSION['Bat']=$cb2['Batch'];
+if ($c==0)
+{
+    echo "incorrect username and password";
+}
+else
+{
+     header("Location:teacher.php?pass=$password");
+}
+
+}
+}
+//include 'admin_panel.php';
+?>
         
     </head>
     <body>
@@ -15,7 +59,7 @@
             <h1>Admin Panel</h1>
         </div>
         <div class="container">
-            <form action="admin_panel.php" name="admin" onsubmit="return validateForm()">
+            <form name="admin" action=admin_login.php method="post">
                 <div class="form-group">
                     <label for="email">Email Address: </label>
                     <div class="input-group">
@@ -34,7 +78,7 @@
                     <label><input type="checkbox"> Remember me</label>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                    <input type="submit" name="submit" class="btn btn-success btn-lg">
                 </div>
             </form>
         </div>

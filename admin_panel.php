@@ -49,8 +49,8 @@
                 die("Connection failed: " . mysqli_connect_error());
             }
 
-            $q1 = "select * from professor";
-            $query1 = mysqli_query($conn, $q1);
+            //$q1 = "select * from professor";
+            //$query1 = mysqli_query($conn, $q1);
         ?>
         <div class="jumbotron text-center">
             <h1>Admin Panel</h1>
@@ -131,11 +131,13 @@
                 </thead>
                 <tbody>
                     <?php
+                    $q1 = "select * from professor natural join professor_email";
+                    $query1 = mysqli_query($conn, $q1);
                         While($rows=mysqli_fetch_assoc($query1))
                         {
-                            $q2 = "select Email_id from professor_email where professor_id = '".$rows['professor_id']."' ";
-                            $query2 = mysqli_query($conn, $q2);
-                            $query2 = mysqli_fetch_array($query2);
+                            //$q2 = "select Email_id from professor_email where professor_id = '".$rows['professor_id']."' ";
+                            //$query2 = mysqli_query($conn, $q2);
+                            //$query2 = mysqli_fetch_array($query2);
                     ?>
                     <tr data-href="https://www.google.com">
                         <td><?php echo $rows['professor_id']; ?></td>
@@ -143,7 +145,7 @@
                         <td><?php echo $rows['Middle']; ?></td>
                         <td><?php echo $rows['Last']; ?></td>
                         <td><?php echo $rows['Date_of_Birth']; ?></td>
-                        <td><?php echo $query2['Email_id']; ?></td>
+                        <td><?php echo $rows['Email_id']; ?></td>
                         <td><?php echo $rows['Role']; ?></td>
                         <td><?php echo $rows['Year']; ?></td>
                         <td><?php echo $rows['Division']; ?></td>
