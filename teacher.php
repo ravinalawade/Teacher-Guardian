@@ -1,3 +1,4 @@
+<?php session_start();?>
 <html>
 <head>
 <meta charset="utf-8">
@@ -50,6 +51,12 @@
             else{
             echo "hello";
         }
+        $id=$_SESSION["id"];
+        /*$cb="select Division,Batch from professor where professor_id=$id";
+        $cb1=mysqli_query($conn,$cb);
+        $cb2=mysqli_fetch_assoc($cb1);
+        $Div=$cb2['Division'];
+        $Bat=$cb2['Batch'];*/
 
         function helloclass(){
 
@@ -62,10 +69,11 @@
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
-                    $Div='A';
-                    $query='select *
-                    from students where Division="A"
-                    ';
+                    $Divi=$_SESSION['Div'];
+                    
+                    $query="select *
+                    from students where Division='$Divi'
+                    ";
                     $classstu=mysqli_query($conn,$query);
 
                     echo'<table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:relative; ">
@@ -80,9 +88,8 @@
                         <th>Division</th>
                         <th>Batch</th>
                 </tr>';
-                $rows=mysqli_fetch_array($classstu,MYSQLI_ASSOC);
                 //print_r(mysqli_fetch_array($classstu));
-              while($rows=mysqli_fetch_array($classstu)){
+              while($rows=mysqli_fetch_assoc($classstu)){
                 //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                 echo('
                 <tr>
@@ -110,10 +117,13 @@
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
-                    $Div='A';
-                    $query='select *
-                    from students where Batch=3
-                    ';
+                    //$Div='A';
+                    $Bat=$_SESSION['Bat'];
+                    
+                    
+                    $query="select *
+                    from students where Batch=$Bat";
+                    
                     $classstu=mysqli_query($conn,$query);
 
                     echo'<table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:relative; ">
@@ -128,9 +138,8 @@
                         <th>Division</th>
                         <th>Batch</th>
                 </tr>';
-                $rows=mysqli_fetch_array($classstu,MYSQLI_ASSOC);
-                //print_r(mysqli_fetch_array($classstu));
-              while($rows=mysqli_fetch_array($classstu)){
+                
+              while($rows=mysqli_fetch_assoc($classstu)){
                 //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                 echo('
                 <tr>
@@ -175,7 +184,7 @@ if($q1){
     echo "done";
 }
     }
-mysqli_close($conn);
+
     ?>
 
 
@@ -183,8 +192,28 @@ mysqli_close($conn);
     <div class="options">
         <p>Photo</p>
         <br>
-        <a href='teacher.php?class=true;batch=false' class="btn btn-primary">class</a>
-        <a href='teacher.php?batch=true;class=true' class="btn btn-primary">batch</a>
+        <a href='teacher.php?class=true;batch=false;' class="btn btn-primary">class</a>
+        <a href='teacher.php?batch=true;class=false;' class="btn btn-primary">batch</a>
+        <?php
+        //static $id;
+        $id=$_SESSION["id"];
+        $det1="select * from professor natural join professor_email where professor_id=$id";
+        $det2=mysqli_query($conn,$det1);
+        $det3=mysqli_fetch_assoc($det2);
+        //print_r($det3);
+        echo "
+        <br>
+        Professor id:<p>".$det3['professor_id']."</p><br>
+        Name:<p>".$det3['First']."".$det3['Middle']."".$det3['Last']."</p><br>
+        Date of birth:<p>".$det3['Date_of_Birth']."</p><br>
+        Email_id:<p>".$det3['Email_id']."</p><br>
+        Role:<p>".$det3['Role']."</p><br>
+        Year:<p>".$det3['Year']."</p><br>
+        Division:<p>".$det3['Division']."</p><br>
+        Batch:<p>".$det3['Batch']."</p><br>
+        ";
+
+        ?>
     </div>
 
 	<button type="button" style="position: absolute; left:500px;" class="btn btn-primary show-toast">Show Toast</button>
