@@ -40,8 +40,10 @@
             $query = mysqli_query($conn,$q);
             $value = mysqli_fetch_assoc($query);
 
-            $q1 = "select Email_id from email, students 
-                    where students.First = 'Pratik' and email.id = students.student_id";
+            /*$q1 = "select Email_id from email as e, students as s 
+                    where students.First = 'Pratik' and email.id = students.student_id";*/
+            $q1 ="select email from students NATURAL JOIN student_email";
+            
             $query1 = mysqli_query($conn, $q1);
             $value1 = mysqli_fetch_assoc($query1);
 
@@ -61,10 +63,13 @@
                     $firstErr = "First Name is required";
                 } 
                 else {
-                    $first = test_input($_POST["firstname"]);
+                    
                     // check if name only contains letters and whitespace
                     if (!preg_match("/^[a-zA-Z]*$/",$first)) {
                         $firstErr = "Only letters allowed";
+                    }
+                    else{
+                        $first = test_input($_POST["firstname"]);
                     }
                 }
 
@@ -180,7 +185,7 @@
             <h1>Personal Student Details</h1>
             <form method="post" action="student_form.php">
                 First name:
-                <input type="text" name="firstname" value="<?php echo $value["First"]; ?>">
+                <input type="text" name="firstname" value="<?php echo $value["FIrst"]; ?>">
                 <span class="error">* <?php echo $firstErr;?></span>
                 <br><br>
                 Middle name:
@@ -204,7 +209,7 @@
                 <span class="error">* <?php echo $b_grpErr;?></span>
                 <br><br>
                 Email:
-                <input type="email" name="email" value="<?php echo $value1["Email_id"]; ?>">
+                <input type="email" name="email" value="<?php echo $value1["email"]; ?>">
                 <span class="error">* <?php echo $emailErr;?></span>
                 <br>
                 <p>Year of Study: <?php echo $value["Study_year"]; ?></p>
@@ -255,26 +260,26 @@
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             $conn = mysqli_connect($servername,"root","","computer_dept") ;
             $value2=13;
-            $q2 = "insert into students (First, Middle, Last, Mother, Date_of_birth, Blood_grp)
-                    values ($first, $middle, $last, $mother, $dob, $b_grp)";
-            /*if (mysqli_query($conn, $q2)) {
+            $q2 = "update students set FIrst='$first', Middle='$middle', Last='$last', Mother='$mother', Date_of_birth='$dob', Blood_grp='$b_grp'
+             where id=2 ";
+            if (mysqli_query($conn, $q2)) {
                 echo "Sucess";
-            }*/
+            }
             /*echo "$first";
             $q3 = "select student_id from students where First = $first";
             $query2 = mysqli_query($conn, $q3);
             $value2 = mysqli_fetch_assoc($query1);*/
 
 
-            $q4 = "insert into email (id,Email_id) values ($value2, $email)";
+            /*$q4 = "insert into email (id,Email_id) values ($value2, $email)";
             /*if (mysqli_query($conn, $q4)) {
                 echo "Sucess";
             }*/
 
             $q5 = "insert into skills (student_id,Skill_name,Certificate,Committee,Role) values ($value2, $skilltype, $skillname)";
-            /*if (mysqli_query($conn, $q5)) {
+            if (mysqli_query($conn, $q5)) {
                 echo "Sucess";
-            }*/
+            }
 
             if ($des != ""){
                 $q6 = "insert into achivements (student_id,Tech/NonTech,Description Won/Lost,Certificate) values ($value2, $a_type, $des, $wl, $cer)";
