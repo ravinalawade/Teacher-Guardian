@@ -81,11 +81,11 @@
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
-                    $Divi=$_SESSION['Div'];
+                    $id = $_SESSION['id'];
                     
-                    $query="select *
-                    from students where Division='$Divi'
-                    ";
+                    $query =  "select * from students as s, 
+                                (select Division, Year from professor where professor_id = '$id') as p
+                                where s.Division = p.Division and s.Study_year = p.Year";
                     $classstu=mysqli_query($conn,$query);
 
                     echo'<table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:relative; ">
@@ -129,12 +129,11 @@
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
-                    //$Div='A';
-                    $Bat=$_SESSION['Bat'];
-                    
-                    
-                    $query="select *
-                    from students where Batch=$Bat";
+                    $id = $_SESSION['id'];
+
+                    $query = "select * from students as s,
+                            ( select Division,Year,Batch from professor where professor_id = '$id') as p
+                            where s.Division = p.Division and Study_year = p.Year and s.Batch=p.Batch";
                     
                     $classstu=mysqli_query($conn,$query);
 
@@ -190,7 +189,7 @@ $bat=$_POST["batch"];
     echo $middle;
     echo $last;
 
-    $q="insert into students (student_id,FIrst,Middle,Last,Mother,Date_of_birth,Blood_grp,Study_year,Admission_year,Division,Roll_no,Batch)
+    $q="insert into students (student_id,First,Middle,Last,Mother,Date_of_birth,Blood_grp,Study_year,Admission_year,Division,Roll_no,Batch)
 values ($sid,'$first','$middle','$last','$Mother', '$date','A+',$soy,$ay,'$divi',$rno,$bat)";
 $q1=mysqli_query($conn,$q);
 if($q1){
@@ -210,7 +209,7 @@ if($q1){
         <?php
         //static $id;
         $id=$_SESSION["id"];
-        $det1="select * from professor natural join professor_email where professor_id=$id";
+        $det1="select * from professor natural join professor_email natural join prof_role where professor_id=$id";
         $det2=mysqli_query($conn,$det1);
         $det3=mysqli_fetch_assoc($det2);
         //print_r($det3);

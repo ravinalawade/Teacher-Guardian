@@ -31,21 +31,26 @@ else{
 $q="select * from professor_email where Email_id='$username' and professor_id=$password";
 $q1=mysqli_query($conn,$q);
 $c=mysqli_num_rows($q1);
-$q2=array();
-$q2=mysqli_fetch_assoc($q1);
+$q2  = "select Role from prof_role where professor_id = $password";
+$query = mysqli_query($conn, $q2);
+$c1 = mysqli_num_rows($query);
 $_SESSION["id"]=$password;
+/*
 $cb="select Division,Batch from professor where professor_id=$password";
         $cb1=mysqli_query($conn,$cb);
         $cb2=mysqli_fetch_assoc($cb1);
         $_SESSION['Div']=$cb2['Division'];
-        $_SESSION['Bat']=$cb2['Batch'];
+        $_SESSION['Bat']=$cb2['Batch'];*/
 if ($c==0)
 {
     echo "incorrect username and password";
 }
+else if($c1==1){
+    header("Location:teacher2.php");
+}
 else
 {
-     header("Location:teacher.php?pass=$password");
+    header("Location:teacher.php?pass=$password");
 }
 
 }

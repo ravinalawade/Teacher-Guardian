@@ -131,7 +131,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $q1 = "select * from professor natural join professor_email";
+                    $q1 = "select * from professor natural join professor_email natural join prof_role";
                     $query1 = mysqli_query($conn, $q1);
                         While($rows=mysqli_fetch_assoc($query1))
                         {
