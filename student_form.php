@@ -36,28 +36,27 @@
                 die("Connection failed: " . mysqli_connect_error());
             }
             echo "Connected successfully ";
-            $q = "select * from students where First = 'Pratik'";
+            $q = "select * from students where student_id=2";
             $query = mysqli_query($conn,$q);
             $value = mysqli_fetch_assoc($query);
 
             /*$q1 = "select Email_id from email as e, students as s 
                     where students.First = 'Pratik' and email.id = students.student_id";*/
-            $q1 ="select email from students NATURAL JOIN student_email";
-            
+            $q1 ="select email from students NATURAL JOIN student_email where student_id=2";
             $query1 = mysqli_query($conn, $q1);
             $value1 = mysqli_fetch_assoc($query1);
 
-            $p = "select student_id from students where First = 'Pratik'";
+            /*$p = "select student_id from students where FIrst = 'pratik'";
             $pery = mysqli_query($conn, $p);
             $pv = mysqli_fetch_assoc($pery);
-            echo $pv['student_id'];
+            echo $pv['student_id'];*/
 
             $firstErr = $middleErr = $lastErr = $motherErr = $dobErr = $b_grpErr = $emailErr = "";
-            $first = $middle = $last = $mother = $dob = $b_grp = $email = "";
+            /*$first = $middle = $last = $mother = $dob = $b_grp = $email = "";*/
 
             $skilltypeErr = $skillnameErr = $a_typeErr = $cerErr = $wlErr = $desErr = "";
-            $skilltype = $skillname = $cer = $wl = $a_type = $des = "";
-
+            /*$skilltype = $skillname = $wl = $a_type = $des = "";
+            $cer ="hello";*/
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (empty($_POST["firstname"])) {
                     $firstErr = "First Name is required";
@@ -149,7 +148,7 @@
                 else {
                     $skillname = test_input($_POST["skillname"]);
                     // check if string contains only lowercase letters and symbols
-                    if (!preg_match("/^[a-z0-9+- ]*$/")) {
+                    if (!preg_match("/^[a-z0-9+- ]*$/",$skillname)) {
                         $skillnameErr = "Invalid format";
                     }
                 }
@@ -255,13 +254,13 @@
         </div>
 
         <?php
-        $servername="localhost";
+        /*$servername="localhost";
             //add below line in every file. It displays error for all sql querries.
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-            $conn = mysqli_connect($servername,"root","","computer_dept") ;
-            $value2=13;
+            $conn = mysqli_connect($servername,"root","","computer_dept") ;*/
+            $value2=20;
             $q2 = "update students set FIrst='$first', Middle='$middle', Last='$last', Mother='$mother', Date_of_birth='$dob', Blood_grp='$b_grp'
-             where id=2 ";
+             where student_id=2 ";
             if (mysqli_query($conn, $q2)) {
                 echo "Sucess";
             }
@@ -276,16 +275,18 @@
                 echo "Sucess";
             }*/
 
-            $q5 = "insert into skills (student_id,Skill_name,Certificate,Committee,Role) values ($value2, $skilltype, $skillname)";
+            /*$q5 = "insert into skills/activities (student_id,Skill_name,Certificate,Committee,Role) 
+            values ($value2,'world','hello','csi','head')";
             if (mysqli_query($conn, $q5)) {
                 echo "Sucess";
-            }
+            }*/
 
             if ($des != ""){
-                $q6 = "insert into achivements (student_id,Tech/NonTech,Description Won/Lost,Certificate) values ($value2, $a_type, $des, $wl, $cer)";
-                /*if (mysqli_query($conn, $q6)) {
-                    echo "Sucess";
-                }*/
+                $q6 = "insert into achivements (student_id,Tech/NonTech,Description Won/Lost,Certificate)
+                 values ($value2,'$a_type',' $des', '$wl', '$cer')";
+                if (mysqli_query($conn, $q6)) {
+                    echo "Sucess Acheivement";
+                }
             }
 
         ?>
