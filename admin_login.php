@@ -27,6 +27,10 @@ if($username=='admin1234@gmail.com' && $password==98765)
 {
 header("Location:admin_panel.php");
 }
+else if($username=='hod1234@gmail.com' && $password==2468)
+{
+header("Location:hod.php");
+}
 else{
 $q="select * from professor_email where Email_id='$username' and professor_id=$password";
 $q1=mysqli_query($conn,$q);
