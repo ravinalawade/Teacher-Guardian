@@ -15,7 +15,7 @@
             <h1>Admin Panel</h1>
         </div>
         <div class="container">
-            <form name="admin" action=admin_panel.php>
+            <form action="admin_panel.php" name="admin" onsubmit="return validateForm()">
                 <div class="form-group">
                     <label for="email">Email Address: </label>
                     <div class="input-group">
@@ -34,7 +34,7 @@
                     <label><input type="checkbox"> Remember me</label>
                 </div>
                 <div class="text-center">
-                    <input type="submit" name="submit" class="btn btn-success btn-lg">
+                    <button type="submit" class="btn btn-success btn-lg">Submit</button>
                 </div>
             </form>
         </div>

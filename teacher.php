@@ -55,6 +55,18 @@
 
 
 </script>
+<script>
+    $( "selector" ).datepicker({
+        altField : "#dob"
+        altFormat: "yyyy-mm-dd"
+    });
+
+    $(document).ready( function() {
+        $(document.body).on("click", "tr[data-href]", function () {
+            window.location.href = this.dataset.href;
+        });
+    });
+</script>
 </head>
 <body>
 
@@ -100,11 +112,11 @@
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
-                    $Divi=$_SESSION['Div'];
+                    $id = $_SESSION['id'];
                     
-                    $query="select *
-                    from students where Division='$Divi'
-                    ";
+                    $query =  "select * from students as s, 
+                                (select Division, Year from professor where professor_id = '$id') as p
+                                where s.Division = p.Division and s.Study_year = p.Year";
                     $classstu=mysqli_query($conn,$query);
 
                     echo'<table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:relative; ">
@@ -123,7 +135,7 @@
               while($rows=mysqli_fetch_assoc($classstu)){
                 //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                 echo('
-                <tr>
+                <tr data-href="student_info.html">
 
                     <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                     <th>'.$rows["Date_of_birth"].'</th>
@@ -148,12 +160,11 @@
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
-                    //$Div='A';
-                    $Bat=$_SESSION['Bat'];
-                    
-                    
-                    $query="select *
-                    from students where Batch=$Bat";
+                    $id = $_SESSION['id'];
+
+                    $query = "select * from students as s,
+                            ( select Division,Year,Batch from professor where professor_id = '$id') as p
+                            where s.Division = p.Division and Study_year = p.Year and s.Batch=p.Batch";
                     
                     $classstu=mysqli_query($conn,$query);
 
@@ -198,18 +209,19 @@ $first=$_POST["firstname"];
 $middle=$_POST["middlename"];
 $last=$_POST["lastname"];
 $Mother=$_POST["mothername"];
+$date = $_POST["dob"];
 $sid=(int)$_POST["stu_id"];
-$soy=$_POST["syear"];
+$soy=(int)$_POST["syear"];
 $divi=$_POST["division"];
-$rno=$_POST["rno"];
-$ay=$_POST["ayear"];
+$rno=(int)$_POST["rno"];
+$ay=(int)$_POST["ayear"];
 $bat=$_POST["batch"];
     echo $first;
     echo $middle;
     echo $last;
 
-    $q="insert into students (student_id,FIrst,Middle,Last,Mother,Date_of_birth,Blood_grp,Study_year,Admission_year,Division,Roll_no,Batch)
-values ($sid,'$first','$middle','$last','$Mother',13-03-2000,'A+',$soy,$ay,'$divi',$rno,$bat)";
+    $q="insert into students (student_id,First,Middle,Last,Mother,Date_of_birth,Blood_grp,Study_year,Admission_year,Division,Roll_no,Batch)
+values ($sid,'$first','$middle','$last','$Mother', '$date','A+',$soy,$ay,'$divi',$rno,$bat)";
 $q1=mysqli_query($conn,$q);
 if($q1){
     echo "done";
@@ -326,25 +338,28 @@ if($q1){
             <div>
                 <h1>Write Details</h1>
                 <form method="post" action="teacher.php">
-                    firstname:<input type="text" name="firstname">
-                    <br><br>
+                    Student_id:
+                    <input type="number" name="stu_id">
+                    <br>
+                    Firstname:<input type="text" name="firstname">
+                    <br>
                     Middle name:
                     <input type="text" name="middlename">
                     <br>
                     Last name:
                     <input type="text" name="lastname">
                     <br>
-                    Student_id:
-                    <input type="text" name="stu_id">
-                    <br>
                     Mother name:
                     <input type="text" name="mothername">
                     <br>
+                    Date ofBirth:
+                    <input type="date" name="dob">
+                    <br>
                     Study year:
-                    <input type="date" name="syear">
+                    <input type="number" name="syear">
                     <br>
                     Admission year:
-                    <input type="date" name="ayear">
+                    <input type="number" name="ayear">
                     <br>
                     Division:
                     <input type="text" name="division">
