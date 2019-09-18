@@ -2,11 +2,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Teacher</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
         <style>
             .col-md-4{
@@ -26,6 +28,14 @@
                 background-color: darkcyan !important;
             }
         </style>
+
+        <script>
+            $(document).ready( function() {
+                $(document.body).on("click", "tr[data-href]", function () {
+                    window.location.href = this.dataset.href;
+                });
+            });
+        </script>
     </head>
     <body>
         <?php
@@ -53,21 +63,21 @@
                             <img src="pratik.jpg" alt="pratik" class="thumbnail">
                         </div>
                         <div class="panel-body">
-                            <h3><?php echo $teacher['First'].' '.$teacher['Middle'].' '.$teacher['Last']; ?></h3>
+                            <h4><?php echo $teacher['First'].' '.$teacher['Middle'].' '.$teacher['Last']; ?></h4>
                             <br>
-                            <h4>Address: <?php echo $teacher['Location']; ?></h4>
+                            <h5>Address: <?php echo $teacher['Location']; ?></h5>
                             <br>
-                            <h4>Date of Birth: <?php echo $teacher['Date_of_Birth']; ?></h4>
+                            <h5>Date of Birth: <?php echo $teacher['Date_of_Birth']; ?></h5>
                             <br>
-                            <h4>Email: <?php echo $teacher['Email_id']; ?></h4>
+                            <h5>Email: <?php echo $teacher['Email_id']; ?></h5>
                             <br>
-                            <h4>Role: <?php echo $teacher['Role']; ?></h4>
+                            <h5>Role: <?php echo $teacher['Role']; ?></h5>
                             <br>
-                            <h4>Year: <?php echo $teacher['Year']; ?></h4>
+                            <h5>Year: <?php echo $teacher['Year']; ?></h5>
                             <br>
-                            <h4>Division: <?php echo $teacher['Division']; ?></h4>
+                            <h5>Division: <?php echo $teacher['Division']; ?></h5>
                             <br>
-                            <h4>Batch: <?php echo $teacher['Batch']; ?></h4>
+                            <h5>Batch: <?php echo $teacher['Batch']; ?></h5>
                         </div>
                     </div>
                 </div>
@@ -77,6 +87,7 @@
                         <a href="#mytoast" class="btn btn-primary btn-lg show-toast">
                             Add a new Student  <span class="glyphicon glyphicon-arrow-right"></span>
                         </a>
+                        <br><br>
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -103,20 +114,20 @@
                                                 where s.Division = p.Division and Study_year = p.Year and s.Batch=p.Batch";
                                     }
                                     $query2 = mysqli_query($conn, $q2);
-                                    echo mysqli_num_rows($query2);
+                                    //echo mysqli_num_rows($query2);
                                     while($rows = mysqli_fetch_assoc($query2))
                                     {
-                                ?>
-                                <tr>
-                                    <td><?php echo $rows['student_id']; ?></td>
-                                    <td><?php echo $rows['First'].' '.$rows['Middle'].' '.$rows['Last']; ?></td>
-                                    <td><?php echo $rows['Date_of_birth']; ?></td>
-                                    <td><?php echo $rows['Year']; ?></td>
-                                    <td><?php echo $rows['Division']; ?></td>
-                                    <td><?php echo $rows['Roll_no']; ?></td>
-                                    <td><?php echo $rows['Batch']; ?></td>
-                                </tr>
-                                <?php
+                                        echo('
+                                            <tr class="clickrow" data-href="student_info.php?id='.$rows["student_id"].'">
+                                                <td>'.$rows['student_id'].'</td>
+                                                <td>'.$rows['First'].' '.$rows['Middle'].' '.$rows['Last'].'</td>
+                                                <td>'.$rows['Date_of_birth'].'</td>
+                                                <td>'.$rows['Year'].'</td>
+                                                <td>'.$rows['Division'].'</td>
+                                                <td>'.$rows['Roll_no'].'</td>
+                                                <td>'.$rows['Batch'].'</td>
+                                            </tr>'
+                                        );
                                     }
                                 ?>
                             </tbody>

@@ -263,31 +263,34 @@ if($q1){
     
     <div id="class">
     <table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:absolute; ">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date Of birth</th>
+                    <th>Year</th>
+                    <th>Division</th>
+                    <th>Roll No</th>
+                    <th>Batch</th>
+                <tr>
+            </thead>
             <tbody>
-                <tr>
-                <th colspan="5" style="text-align: center;">Details</th>
-                </tr>
-                <tr>
-                        <th>Name</th>
-                        <th>Date Of birth</th>
-                        <th>Year</th>
-                        <th>Division</th>
-                        <th>Batch</th>
-                <tr>
                 <?php 
-                while($rows=mysqli_fetch_assoc($classstu)){
-                    //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
-                    echo('
-                    <tr class="clickrow" data-href="student_info.php?id='.$rows["student_id"].'">
-    
-                        <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
-                        <th>'.$rows["Date_of_birth"].'</th>
-                        <th>'.$rows["Study_year"]. '</th>
-                        <th>'.$rows["Division"].'</th>
-                        <th>'.$rows["Batch"].'</th>
-                        <th>hello</th>
-                    </tr>');
-                }
+                    while($rows=mysqli_fetch_assoc($classstu)){
+                        //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
+                        echo('
+                            <tr class="clickrow" data-href="student_info.php?id='.$rows["student_id"].'">
+                                <td>'.$rows["student_id"].'</td>
+                                <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
+                                <th>'.$rows["Date_of_birth"].'</th>
+                                <th>'.$rows["Study_year"]. '</th>
+                                <th>'.$rows["Division"].'</th>
+                                <td>'.$rows["Roll_no"].'</td>
+                                <th>'.$rows["Batch"].'</th>
+                                <th>hello</th>
+                            </tr>'
+                        );
+                    }
                 ?>
             </tbody>
     </table>    
