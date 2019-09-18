@@ -33,6 +33,27 @@
             $("#myToast").toast('show');
         });
     });
+    function fclass() {
+        var x = document.getElementById("class");
+        x.style.display = "block";
+        var y = document.getElementById("batch");
+        y.style.display = "none";
+        console.log(x);
+    }
+    function fbatch() {
+        var x = document.getElementById("batch");
+        x.style.display = "block";
+        var y = document.getElementById("class");
+        y.style.display = "none";
+        console.log(x);
+    }
+    jQuery(document).ready(function($) {
+    $(".clickrow").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+
+
 </script>
 <script>
     $( "selector" ).datepicker({
@@ -64,13 +85,23 @@
             echo "hello";
         }
         $id=$_SESSION["id"];
+        $Divi=$_SESSION['Div'];
+        $Bat=$_SESSION['Bat'];
+        $query="select *
+                    from students where Division='$Divi'
+                    ";
+        $classstu=mysqli_query($conn,$query);
+        $query1="select *
+                    from students where Batch=$Bat";
+                    
+        $batchstu=mysqli_query($conn,$query1);
         /*$cb="select Division,Batch from professor where professor_id=$id";
         $cb1=mysqli_query($conn,$cb);
         $cb2=mysqli_fetch_assoc($cb1);
         $Div=$cb2['Division'];
         $Bat=$cb2['Batch'];*/
 
-        function helloclass(){
+        /*function helloclass(){
 
                     $servername="localhost";
             //add below line in every file. It displays error for all sql querries.
@@ -170,7 +201,7 @@
   }
   if (isset($_GET['batch'])) {
     hellobatch();
-  }
+  }*/
 
         if (!empty($_POST))
         {
@@ -204,8 +235,8 @@ if($q1){
     <div class="options">
         <p>Photo</p>
         <br>
-        <a href='teacher.php?class=true;batch=false;' class="btn btn-primary">class</a>
-        <a href='teacher.php?batch=true;class=false;' class="btn btn-primary">batch</a>
+        <button onclick="fclass()" class="btn btn-primary">class</button>
+        <button onclick="fbatch()" class="btn btn-primary">batch</button>
         <?php
         //static $id;
         $id=$_SESSION["id"];
@@ -226,6 +257,72 @@ if($q1){
         ";
 
         ?>
+    </div>
+    
+    <div id="class">
+    <table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:absolute; ">
+            <tbody>
+                <tr>
+                <th colspan="5" style="text-align: center;">Details</th>
+                </tr>
+                <tr>
+                        <th>Name</th>
+                        <th>Date Of birth</th>
+                        <th>Year</th>
+                        <th>Division</th>
+                        <th>Batch</th>
+                <tr>
+                <?php 
+                while($rows=mysqli_fetch_assoc($classstu)){
+                    //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
+                    echo('
+                    <tr class="clickrow" data-href="studentinfo.php?id='.$rows["student_id"].'">
+    
+                        <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
+                        <th>'.$rows["Date_of_birth"].'</th>
+                        <th>'.$rows["Study_year"]. '</th>
+                        <th>'.$rows["Division"].'</th>
+                        <th>'.$rows["Batch"].'</th>
+                        <th>hello</th>
+                    </tr>');
+                }
+                ?>
+            </tbody>
+    </table>    
+    
+    </div>
+
+    <div id="batch" style="display:none;">
+    <table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:absolute; ">
+            <tbody>
+                <tr>
+                <th colspan="5" style="text-align: center;">Details</th>
+                </tr>
+                <tr>
+                        <th>Name</th>
+                        <th>Date Of birth</th>
+                        <th>Year</th>
+                        <th>Division</th>
+                        <th>Batch</th>
+                <tr>
+                <?php 
+                while($rows=mysqli_fetch_assoc($batchstu)){
+                    //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
+                    echo('
+                    <tr class="clickrow" data-href="studentinfo.php">
+    
+                        <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
+                        <th>'.$rows["Date_of_birth"].'</th>
+                        <th>'.$rows["Study_year"]. '</th>
+                        <th>'.$rows["Division"].'</th>
+                        <th>'.$rows["Batch"].'</th>
+                        <th>hello</th>
+                    </tr>');
+                }
+                ?>
+            </tbody>
+    </table>
+
     </div>
 
 	<button type="button" style="position: absolute; left:500px;" class="btn btn-primary show-toast">Show Toast</button>
