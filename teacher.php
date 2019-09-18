@@ -85,16 +85,18 @@
             echo "hello";
         }
         $id=$_SESSION["id"];
-        $Divi=$_SESSION['Div'];
-        $Bat=$_SESSION['Bat'];
-        $query="select *
-                    from students where Division='$Divi'
-                    ";
+        //$Divi=$_SESSION['Div'];
+        //$Bat=$_SESSION['Bat'];
+        $query = "select * from students as s, 
+                (select Division, Year from professor where professor_id = '$id') as p
+                where s.Division = p.Division and s.Study_year = p.Year";
         $classstu=mysqli_query($conn,$query);
-        $query1="select *
-                    from students where Batch=$Bat";
-                    
+
+        $query1 = "select * from students as s,
+                    ( select Division,Year,Batch from professor where professor_id = '$id') as p
+                    where s.Division = p.Division and Study_year = p.Year and s.Batch=p.Batch";            
         $batchstu=mysqli_query($conn,$query1);
+
         /*$cb="select Division,Batch from professor where professor_id=$id";
         $cb1=mysqli_query($conn,$cb);
         $cb2=mysqli_fetch_assoc($cb1);
@@ -276,7 +278,7 @@ if($q1){
                 while($rows=mysqli_fetch_assoc($classstu)){
                     //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                     echo('
-                    <tr class="clickrow" data-href="studentinfo.php?id='.$rows["student_id"].'">
+                    <tr class="clickrow" data-href="student_info.php?id='.$rows["student_id"].'">
     
                         <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                         <th>'.$rows["Date_of_birth"].'</th>
@@ -309,7 +311,7 @@ if($q1){
                 while($rows=mysqli_fetch_assoc($batchstu)){
                     //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                     echo('
-                    <tr class="clickrow" data-href="studentinfo.php">
+                    <tr class="clickrow" data-href="student_info.php?id='.$rows["student_id"].'">
     
                         <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                         <th>'.$rows["Date_of_birth"].'</th>

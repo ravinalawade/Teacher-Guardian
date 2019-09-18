@@ -28,6 +28,18 @@
         </style>
     </head>
     <body>
+        <?php
+            $servername="localhost";
+            //add below line in every file. It displays error for all sql querries.
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+            $conn = mysqli_connect($servername,"root","","computer_dept") ;
+
+            // Check connection
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+        ?>
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 text center">
@@ -37,23 +49,30 @@
                             <img src="pratik.jpg" alt="pratik" class="thumbnail">
                         </div>
                         <div class="panel-body">
-                            <h3>Pratik Deepak Naik</h3>
+                            <?php
+                                $id=$_GET['id'];
+                                $q1 = "select * from students where student_id=$id";
+                                $query1 = mysqli_query($conn, $q1);
+                                //echo mysqli_num_rows($query1);
+                                $student = mysqli_fetch_assoc($query1);
+                            ?>
+                            <h3><?php echo $student['First'].' '.$student['Middle'].' '.$student['Last']; ?></h3>
                             <br>
-                            <h4>Mother name: Deepa Naik</h4>
+                            <h4>Mother name: <?php echo $student['Mother']; ?></h4>
                             <br>
-                            <h4>Address: 3/304. A wing, Shree Yashwant CHS, Manisha Nagar Gate No 2, Kalwa(West), Thane, 400605</h4>
+                            <h4>Address: <?php echo $student['Location']; ?></h4>
                             <br>
-                            <h4>Date of Birth: 04/07/1999</h4>
+                            <h4>Date of Birth: <?php echo $student['Date_of_birth']; ?></h4>
                             <br>
-                            <h4>Blood Group: AB+</h4>
+                            <h4>Blood Group: <?php echo $student['Blood_grp']; ?></h4>
                             <br>
-                            <h4>Year of Study: 3</h4>
+                            <h4>Year of Study: <?php echo $student['Study_year']; ?></h4>
                             <br>
-                            <h4>Admission Year: 2017</h4>
+                            <h4>Admission Year: <?php echo $student['Admission_year']; ?></h4>
                             <br>
-                            <h4>Division: A</h4>
+                            <h4>Division: <?php echo $student['Division']; ?></h4>
                             <br>
-                            <h4>Roll No: 50</h4>
+                            <h4>Roll No: <?php echo $student['Roll_no']; ?></h4>
                         </div>
                     </div>
                 </div>
