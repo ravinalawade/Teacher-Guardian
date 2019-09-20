@@ -19,8 +19,38 @@
 
         <script>
             $(document).ready(function(){
-                $(".show-toast").click(function(){
-                    $("#mytoast").toast('show');
+                $(".show-toast.ap").click(function(){
+                    $("#mytoast1").toast('show');
+                });
+            });
+
+            $(document).ready(function(){
+                $(".show-toast.up").click(function(){
+                    $("#mytoast2").toast('show');
+                });
+            });
+
+            $(document).ready(function(){
+                $(".show-toast.dp").click(function(){
+                    $("#mytoast3").toast('show');
+                });
+            });
+
+            $(document).ready(function(){
+                $(".show-toast.as").click(function(){
+                    $("#mytoast4").toast('show');
+                });
+            });
+
+            $(document).ready(function(){
+                $(".show-toast.us").click(function(){
+                    $("#mytoast5").toast('show');
+                });
+            });
+
+            $(document).ready(function(){
+                $(".show-toast.ds").click(function(){
+                    $("#mytoast6").toast('show');
                 });
             });
         </script>
@@ -55,15 +85,30 @@
         <div class="jumbotron text-center">
             <h1>Admin Panel</h1>
             <br><br>
-            <a href="#mytoast" class="btn btn-primary btn-lg show-toast">
-                Add a new Teacher  <span class="glyphicon glyphicon-arrow-right"></span>
-            </a>
+            <div class="dropdowm">
+                <button class="btn btn-primary btn-lg dropdwon-toggle" type="button" data-toggle="dropdown">
+                    Select Option <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu"> 
+                    <li class="dropdown-header">Professor</li>
+                    <li><a href="#mytoast1" class="show-toast ap">Add professor</a></li>
+                    <li><a href="#mytoat2" class="show-toast up">Update professor</a></li>
+                    <li><a href="#mytoast3" class="show-toast dp">Delete professor</a></li>
+                    <li class="dropdown-header">Student</li>
+                    <li><a href="#mytoast4" class="show-toast as">Add student</a></li>
+                    <li><a href="#mytoast5" class="show-toast us">Update student</a></li>
+                    <li><a href="#mytoast6" class="show-toast ds">Delete student</a></li>
+                    <li><a href="#">Add result</a></li>
+                </ul>
+            </div>
         </div>
 
-        <div class="toast" id="mytoast" data-autohide="false" data-animation="true" style="position: absolute; top: 0; right: 0;">
+        <div class="toast" id="mytoast1" data-autohide="false" data-animation="true" style="position: absolute; top: 0; right: 0;">
             <div class="toast-header">
                 <h2>Add New Professor</h2>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="toast-body">
                 <form action="data_entry.php" method="POST">
@@ -100,7 +145,7 @@
                         <input id="year" type="number" class="form-control" name="year" placeholder="Year" required>
                     </div>
                     <div class="form-group">
-                        <label for="first">Division: </label>
+                        <label for="div">Division: </label>
                         <input id="div" type="text" class="form-control" name="div" placeholder="DIV" required>
                     </div>
                     <div class="form-group">
@@ -109,6 +154,163 @@
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                 </form>
+            </div>
+        </div>
+
+        <div class="toast" id="mytoast2" data-autohide="false" data-animation="true" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+                    <h2>Update Professor</h2>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="toast-body">
+                <form>
+                    <div class="form-group">
+                        <label for="pid">Professor ID: </label>
+                        <input id="pid" type="number" class="form-control" name="pid" placeholder="ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role: </label>
+                        <select class="from-control" id="role">
+                            <option>Guardian</option>
+                            <option>Incharge</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year: </label>
+                        <input id="year" type="number" class="form-control" name="year" placeholder="Year" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="div">Division: </label>
+                        <input id="div" type="text" class="form-control" name="div" placeholder="DIV" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bat">Batch: </label>
+                        <input id="bat" type="number" class="form-control" name="bat" placeholder="Batch">
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="toast" id="mytoast3" data-autohide="false" data-animation="true" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+                <h2>Delete Professor</h2>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <form>
+                    <div class="form-group">
+                        <label for="pid">Professor ID: </label>
+                        <input id="pid" type="number" class="form-control" name="pid" placeholder="ID" required>
+                    </div>
+                </form>
+                <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+            </div>
+        </div>
+
+        <div class="toast" id="mytoast4" data-autohide="false" data-animation="true" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+                <h2>Add Student</h2>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <form>
+                    <div class="form-group">
+                        <label for="sid">Student ID: </label>
+                        <input id="sid" type="number" class="form-control" name="sid" placeholder="ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="first">First Name: </label>
+                        <input id="first" type="text" class="form-control" name="first" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="middle">Middle Name: </label>
+                        <input id="middle" type="text" class="form-control" name="middle" placeholder="Middle Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last">Last Name: </label>
+                        <input id="last" type="text" class="form-control" name="last" placeholder="Last Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth: </label>
+                        <input id="dob" type="date" class="form-control" name="dob" placeholder="Date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year: </label>
+                        <input id="year" type="number" class="form-control" name="year" placeholder="Year" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="div">Division: </label>
+                        <input id="div" type="text" class="form-control" name="div" placeholder="DIV" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="roll">Roll No: </label>
+                        <input id="roll" type="number" class="form-control" name="roll" placeholder="ROLLNO" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="first">Batch: </label>
+                        <input id="batch" type="number" class="form-control" name="batch" placeholder="Batch">
+                    </div>
+                </form>
+                <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+            </div>
+        </div>
+
+        <div class="toast" id="mytoast5" data-autohide="false" data-animation="true" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+                    <h2>Update Student</h2>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="toast-body">
+                <form>
+                    <div class="form-group">
+                        <label for="pid">Student ID: </label>
+                        <input id="pid" type="number" class="form-control" name="pid" placeholder="ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year: </label>
+                        <input id="year" type="number" class="form-control" name="year" placeholder="Year" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="div">Division: </label>
+                        <input id="div" type="text" class="form-control" name="div" placeholder="DIV" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bat">Batch: </label>
+                        <input id="bat" type="number" class="form-control" name="bat" placeholder="Batch">
+                    </div>
+                    <div class="form-group">
+                        <label for="roll">Roll No: </label>
+                        <input id="roll" type="number" class="form-control" name="roll" placeholder="ROLLNO" required>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="toast" id="mytoast6" data-autohide="false" data-animation="true" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+                <h2>Delete Student</h2>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <form>
+                    <div class="form-group">
+                        <label for="sid">Student ID: </label>
+                        <input id="sid" type="number" class="form-control" name="sid" placeholder="ID" required>
+                    </div>
+                </form>
+                <button type="submit" class="btn btn-lg btn-primary">Submit</button>
             </div>
         </div>
 
