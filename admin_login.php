@@ -37,6 +37,7 @@ $q1=mysqli_query($conn,$q);
 $c=mysqli_num_rows($q1);
 $q2  = "select Role from prof_role where professor_id = $password";
 $query = mysqli_query($conn, $q2);
+$teacher=mysqli_fetch_assoc($query);
 $c1 = mysqli_num_rows($query);
 $_SESSION["id"]=$password;
 /*
@@ -50,7 +51,10 @@ if ($c==0)
     echo "incorrect username and password";
 }
 else if($c1==1){
-    header("Location:teacher2.php");
+    if ($teacher["Role"]=='Guardian')
+        header("Location:teacher2.php");
+    else
+        header("Location:teacher3.php");
 }
 else
 {

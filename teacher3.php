@@ -50,7 +50,7 @@
             }
 
             $id = $_SESSION["id"];
-            $q1 = "select * from professor natural join professor_email natural join prof_role natural join prof_address where professor_id = $id";
+            $q1 = "select * from professor natural join professor_email natural join prof_role where professor_id = $id";
             $query1 = mysqli_query($conn, $q1);
             $teacher = mysqli_fetch_assoc($query1);
         ?>
@@ -84,6 +84,9 @@
                 <div class="col-md-8">
                     <div class="container text-center">
                         <h2>Teacher Database</h2>
+                        <a href="#mytoast" class="btn btn-primary btn-lg show-toast">
+                            Add a new Student  <span class="glyphicon glyphicon-arrow-right"></span>
+                        </a>
                         <br><br>
                         <table class="table table-hover">
                             <thead>

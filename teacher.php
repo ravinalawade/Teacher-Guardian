@@ -279,7 +279,7 @@ if($q1){
                     while($rows=mysqli_fetch_assoc($classstu)){
                         //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                         echo('
-                            <tr class="clickrow" data-href="student_info.php?id='.$rows["student_id"].'">
+                            <tr class="clickrow" data-href="student_infohod.php?id='.$rows["student_id"].'">
                                 <td>'.$rows["student_id"].'</td>
                                 <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                                 <th>'.$rows["Date_of_birth"].'</th>
