@@ -120,7 +120,7 @@ $profess=mysqli_query($conn,$query1);
                         while($rows=mysqli_fetch_assoc($profess)){
                             //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                             echo('
-                            <tr class="clickrow" data-href="student_info.php?id='.$rows["professor_id"].'">
+                            <tr class="clickrow" data-href="teacher_info.php?id='.$rows["professor_id"].'">
             
                                 <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                                 <th>'.$rows["Date_of_Birth"].'</th>
