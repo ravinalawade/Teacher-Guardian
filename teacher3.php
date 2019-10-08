@@ -11,14 +11,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
         <style>
-            .col-md-3{
+            .col-md-4{
                 background-color: aqua;
                 height: 100%;
                 margin-left: 0;
-                position: fixed;
-            }
-            .col-md-9{
-                margin-left: 25%;
             }
             .thumbnail{
                 width: 200px;
@@ -27,17 +23,9 @@
             }
             .panel{
                 margin: 20px 10px 20px 10px;
-                height: 100%;
-                border: 5px solid #032970;
-                border-radius:5px;
-                transition: box-shadow 0.5s;
             }
             .panel-heading{
                 background-color: darkcyan !important;
-            }
-            .img-circle{
-                height: 200px;
-                width: 200px;
             }
         </style>
 
@@ -62,21 +50,22 @@
             }
 
             $id = $_SESSION["id"];
-
-            $q1 = "select * from professor natural join professor_email natural join prof_role natural join prof_address where professor_id = $id";
-
+            $q1 = "select * from professor natural join professor_email natural join prof_role where professor_id = $id";
             $query1 = mysqli_query($conn, $q1);
             $teacher = mysqli_fetch_assoc($query1);
         ?>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3 text center">
+                <div class="col-md-4 text center">
                     <div class="panel panel-default">
                         <div class="panel-heading text-center">
-                            <img src="pratik.jpg" alt="pratik" class="img-circle">
+                            <h2>Basic Details</h2>
+                            <img src="pratik.jpg" alt="pratik" class="thumbnail">
                         </div>
                         <div class="panel-body">
                             <h4><?php echo $teacher['First'].' '.$teacher['Middle'].' '.$teacher['Last']; ?></h4>
+                            <br>
+                            <h5>Address: <?php echo $teacher['Location']; ?></h5>
                             <br>
                             <h5>Date of Birth: <?php echo $teacher['Date_of_Birth']; ?></h5>
                             <br>
@@ -92,9 +81,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="container text-center">
                         <h2>Teacher Database</h2>
+                        <a href="#mytoast" class="btn btn-primary btn-lg show-toast">
+                            Add a new Student  <span class="glyphicon glyphicon-arrow-right"></span>
+                        </a>
                         <br><br>
                         <table class="table table-hover">
                             <thead>
@@ -113,7 +105,7 @@
                                     $id = $_SESSION['id'];
                                     if($teacher['Role']=='Incharge'){
                                         $q2 = "select * from students as s, 
-                                                (select Division, Year from prof_rol where professor_id = '$id') as p
+                                                (select Division, Year from professor where professor_id = '$id') as p
                                                 where s.Division = p.Division and s.Study_year = p.Year";
                                     }
                                     else if($teacher['Role']=='Guardian'){

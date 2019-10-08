@@ -232,6 +232,7 @@
         ?>
 
 
+
         <div class="bs-example" style="position:relative;">
         <div class="options">
             <p>Photo</p>
@@ -257,45 +258,47 @@
             Batch:<p>".$det3['Batch']."</p><br>
             ";
 
-            ?>
-        </div>
-        
-        <div id="class">
-        <table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:absolute; ">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Date Of birth</th>
-                        <th>Year</th>
-                        <th>Division</th>
-                        <th>Roll No</th>
-                        <th>Batch</th>
-                    <tr>
-                </thead>
-                <tbody>
-                    <?php 
-                        while($rows=mysqli_fetch_assoc($classstu)){
-                            //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
-                            echo('
-                                <tr class="clickrow" data-href="student_info.php?id='.$rows["student_id"].'">
-                                    <td>'.$rows["student_id"].'</td>
-                                    <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
-                                    <th>'.$rows["Date_of_birth"].'</th>
-                                    <th>'.$rows["Study_year"]. '</th>
-                                    <th>'.$rows["Division"].'</th>
-                                    <td>'.$rows["Roll_no"].'</td>
-                                    <th>'.$rows["Batch"].'</th>
-                                    <th>hello</th>
-                                </tr>'
-                            );
-                        }
-                    ?>
-                </tbody>
-        </table>    
-        
-        </div>
+        ?>
+    </div>
+    
+    <div id="class">
+    <table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:absolute; ">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date Of birth</th>
+                    <th>Year</th>
+                    <th>Division</th>
+                    <th>Roll No</th>
+                    <th>Batch</th>
+                <tr>
+            </thead>
+            <tbody>
+                <?php 
+                    while($rows=mysqli_fetch_assoc($classstu)){
+                        //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
+                        echo('
+                            <tr class="clickrow" data-href="student_infohod.php?id='.$rows["student_id"].'">
+                                <td>'.$rows["student_id"].'</td>
+                                <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
+                                <th>'.$rows["Date_of_birth"].'</th>
+                                <th>'.$rows["Study_year"]. '</th>
+                                <th>'.$rows["Division"].'</th>
+                                <td>'.$rows["Roll_no"].'</td>
+                                <th>'.$rows["Batch"].'</th>
+                                <th>hello</th>
+                            </tr>'
+                        );
+                    }
+                ?>
+            </tbody>
+    </table>    
+    
+    </div>
 
+
+            
         <div id="batch" style="display:none;">
         <table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:absolute; ">
                 <tbody>
