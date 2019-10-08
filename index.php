@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <title>My first PHP Website</title>
@@ -28,12 +27,7 @@
             //uname is username entered in form
             //username is attribute of proffessor which is unique.
             //$uname=1;
-            $q1="select s.First,s.Middle,s.Last
-                from students as s,(
-                  select Division,Year from professor
-                  where username = '$uname'
-                  ) as p
-                where s.Division = p.Division and Study_year = p.Year";
+            $q1="select * from students";
             $query1=mysqli_query($conn,$q1);
             while($row = mysqli_fetch_array($query1,MYSQLI_ASSOC))
             {

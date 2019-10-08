@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE php>
+<php>
     <head>
         <title>Admin Panel</title>
         <meta charset="utf-8">
@@ -10,21 +10,60 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
         <style>
+            body{
+                background-color: #C5C6C7;
+            }
+            .btn{
+                background-color: #0B0C10;
+                border: 1px solid #66FCF1;
+                color: #66FCF1;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+            .btn:hover{
+                background-color: #4FA29E;
+                color: #0B0C10;
+            }
             .jumbotron{
-                background-color: aquamarine;
-                color: aliceblue;
+                background-color: #0B0C10;
+                color: #C5C6C7;
                 padding: 60px 25px;
+            }
+            .jumbotron .admin{
+                font-size: 75px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .dropdown-menu{
+                background-color: #1F2833;
+            }
+            a{
+                color: #66FCF1;
+            }
+            a:hover{
+                color: #C5C6C7;
+            }
+            .dropdown-header{
+                color: #C5C6C7;
+                font-size: 30px;
+            }
+            #teacher{
+                color: #0B0C10;
+            }
+            .table{
+                background-color: #1F2833;
+                color: #4FA29E;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+            thead{
+                background-color: #0B0C10;
+                color: #C5C6C7;
+            }
+            tr:hover{
+                background-color: #0B0C10;
+                color: #66FCF1;
             }
         </style>
 
-        <script>
-            $(document).ready(function(){
-                $(".show-toast").click(function(){
-                    $("#mytoast").toast('show');
-                });
-            });
-        </script>
-        <script>
+        <!-- <script>
             $( "selector" ).datepicker({
                 altField : "#dob"
                 altFormat: "yyyy-mm-dd"
@@ -35,7 +74,7 @@
                     window.location.href = this.dataset.href;
                 });
             });
-        </script>
+        </script> -->
     </head>
     <body>
         <?php
@@ -53,68 +92,31 @@
             //$query1 = mysqli_query($conn, $q1);
         ?>
         <div class="jumbotron text-center">
-            <h1>Admin Panel</h1>
-            <br><br>
-            <a href="#mytoast" class="btn btn-primary btn-lg show-toast">
-                Add a new Teacher  <span class="glyphicon glyphicon-arrow-right"></span>
-            </a>
-        </div>
-
-        <div class="toast" id="mytoast" data-autohide="false" data-animation="true" style="position: absolute; top: 0; right: 0;">
-            <div class="toast-header">
-                <h2>Add New Professor</h2>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-            </div>
-            <div class="toast-body">
-                <form action="data_entry.php" method="POST">
-                    <div class="form-group">
-                        <label for="pid">Professor ID: </label>
-                        <input id="pid" type="number" class="form-control" name="pid" placeholder="ID" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="first">First Name: </label>
-                        <input id="first" type="text" class="form-control" name="first" placeholder="First Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="middle">Middle Name: </label>
-                        <input id="middle" type="text" class="form-control" name="middle" placeholder="Middle Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="last">Last Name: </label>
-                        <input id="last" type="text" class="form-control" name="last" placeholder="Last Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="dob">Date of Birth: </label>
-                        <input id="dob" type="date" class="form-control" name="dob" placeholder="Date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email: </label>
-                        <input id="email" type="email" class="form-control" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="role">Role: </label>
-                        <input id="role" type="text" class="form-control" name="role" placeholder="Guardian/Incharge/HOD" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="year">Year of teaching: </label>
-                        <input id="year" type="number" class="form-control" name="year" placeholder="Year" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="first">Division: </label>
-                        <input id="div" type="text" class="form-control" name="div" placeholder="DIV" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="first">Batch: </label>
-                        <input id="batch" type="number" class="form-control" name="batch" placeholder="Batch">
-                    </div>
-                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                </form>
+            <h1 class="admin">Admin Panel</h1>
+            <div class="dropdowm">
+                <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+                    Select Option <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu"> 
+                    <li class="dropdown-header">Professor</li>
+                    <li><a href="add_prof.php" >Add Professor</a></li>
+                    <li><a href="add_profRole.php">Add Incharge/Guardian</a></li>
+                    <li><a href="add_teaching.php">Add Teaching details</a></li>
+                    <li><a href="update_profRole.php">Update Professor Role</a></li>
+                    <li><a href="update_teaching.php">Update Teaching details</a></li>
+                    <li><a href="del_prof.php">Delete Professor</a></li>
+                    <li class="dropdown-header">Student</li>
+                    <li><a href="add_stud.php">Add student</a></li>
+                    <li><a href="update_stud.php">Update student</a></li>
+                    <li><a href="del_stud.php">Delete student</a></li>
+                    <li><a href="add_result.php">Add result</a></li>
+                </ul>
             </div>
         </div>
 
         <div class="container text-center">
-            <h2>Teacher Database</h2>
-            <table class="table table-hover">
+            <h2 id="teacher">Teacher Database</h2>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -131,7 +133,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $q1 = "select * from professor natural join professor_email natural join prof_role";
+                    $q1 = "select * from professor natural join professor_email natural join prof_rol";
                     $query1 = mysqli_query($conn, $q1);
                         While($rows=mysqli_fetch_assoc($query1))
                         {
@@ -139,7 +141,7 @@
                             //$query2 = mysqli_query($conn, $q2);
                             //$query2 = mysqli_fetch_array($query2);
                     ?>
-                    <tr data-href="https://www.google.com">
+                    <tr class="details">
                         <td><?php echo $rows['professor_id']; ?></td>
                         <td><?php echo $rows['First']; ?></td>
                         <td><?php echo $rows['Middle']; ?></td>
@@ -158,4 +160,4 @@
             </table>
         </div>   
     </body>
-</html>
+</php>

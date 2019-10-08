@@ -8,16 +8,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-        
     </head>
     <body>
         <div class="jumbotron text-center">
             <h1>Admin Panel</h1>
         </div>
         <div class="container">
-            <form action="admin_panel.php" name="admin" onsubmit="return validateForm()">
+            <form action="admin_panel.php" name="admin" onsubmit="return validateForm()" name="myForm">
                 <div class="form-group">
-                    <label for="email">Email Address: </label>
+                    <labe for="email">Email Address: </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input id="email" type="email" class="form-control" name="email" placeholder="Email" required>
