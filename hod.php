@@ -37,6 +37,16 @@ echo "hello";
 }
 $query = "select * from students ";
 $stud=mysqli_query($conn,$query);
+//echo isset($_POST['submit']);
+if(isset($_POST['submit'])){
+    $y=$_POST['Year'];
+    $d=$_POST['Division'];
+    $b=$_POST['Batch'];
+    $query ="select * from students where Study_year like '$y%' and Division like '$d%' and Batch like '$b%' ";
+    $stud=mysqli_query($conn,$query);
+    //echo"in selection";
+    //print_r($stud);
+}
 $query1="select * from professor";
 $profess=mysqli_query($conn,$query1);
 ?>
@@ -72,7 +82,29 @@ $profess=mysqli_query($conn,$query1);
         
         <button onclick="fstudents()" class="btn btn-primary" style="position:absolute; left:400px; top:30px; ">Student</button>
         <button onclick="fprofessor()" class="btn btn-primary" style="position:absolute; left:550px; top:30px; ">Professor</button>
-        <div id="students" style="display:none;">
+        <div id="students">
+        <form name="selection" action="hod.php" method="post" style="text-align:center;">
+        <select name="Year">
+            <option value="_">None</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <select name="Division">
+            <option value="_">None</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+        </select>
+        <select name="Batch">
+            <option value="_">None</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>  
+        <input type="submit" name="submit" onclick="fstudents()">
+        </form>
+        
             <table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:absolute; ">
                 <tbody>
                     <tr>
@@ -89,7 +121,7 @@ $profess=mysqli_query($conn,$query1);
                     while($rows=mysqli_fetch_assoc($stud)){
                         //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                         echo('
-                        <tr class="clickrow" data-href="student_info.php?id='.$rows["student_id"].'">
+                        <tr class="clickrow" data-href="student_infohod.php?id='.$rows["student_id"].'">
         
                             <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                             <th>'.$rows["Date_of_birth"].'</th>
@@ -103,7 +135,7 @@ $profess=mysqli_query($conn,$query1);
                 </tbody>
             </table>
         </div>
-        <div id="professor">
+        <div id="professor" style="display:none;">
             <table class="table table-hover" style="height:50%; width:40%; left:430px; top:200px; position:absolute; ">
                     <tbody>
                         <tr>

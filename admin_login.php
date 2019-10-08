@@ -89,6 +89,7 @@
                 die("Connection failed: " . mysqli_connect_error());
             }
 
+
             if (!empty($_POST)){
                 $username=$_POST['email'];
                 $password=$_POST['pwd'];
