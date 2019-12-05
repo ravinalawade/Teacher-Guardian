@@ -107,7 +107,7 @@
             $date = test_input($_POST["date"]);
             $sub = test_input($_POST["sub"]);
             $marks = (int)test_input($_POST["marks"]);
-            if($marks<4) $grade = "Pass";
+            if($marks>=4) $grade = "Pass";
             else $grade = "Fail";
             // echo $date;
         

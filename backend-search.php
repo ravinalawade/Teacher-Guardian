@@ -29,9 +29,9 @@ if(isset($_REQUEST["term"])){
                 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                     echo "<p>" . $row["Skill_name"] . "</p>";
                 }
-            } //else{
-                //echo "<p>No matches found</p>";
-          //  }
+            } else{
+                echo "<p>No matches found</p>";
+            }
         } else{
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
         }
