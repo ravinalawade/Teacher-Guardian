@@ -158,7 +158,6 @@
             y.style.display = "none";
             console.log(x);
         }
-
     
     </script>
   </head>
@@ -168,26 +167,20 @@
       //add below line in every file. It displays error for all sql querries.
       mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
       $conn = mysqli_connect($servername,"root","","computer_dept") ;
-
       // Check connection
       if (!$conn) {
           die("Connection failed: " . mysqli_connect_error());
       }
-
       $id = $_SESSION['id'];
       $qp = "select * from students natural join student_email natural join student_address where student_id=$id";
       $queryp = mysqli_query($conn, $qp);
       $detail = mysqli_fetch_assoc($queryp);
-
       $qs = "select * from skills where student_id=$id";
       $querys = mysqli_query($conn, $qs);
-
       $qa = "select * from achivements where student_id=$id";
       $querya = mysqli_query($conn, $qa);
-
       $qr = "select * from result where student_id=$id";
       $queryr = mysqli_query($conn, $qr);
-
       $qat = "select * from attendance where student_id=$id";
       $queryat = mysqli_query($conn, $qat);
     ?>
@@ -452,7 +445,6 @@
           $("[name='email']").val(value[12]);
           // alert(value[12]);
         })
-
         //display skills
         $.post('backend_query.php',{ y : 't'}).done(function(data){
           var display_skill = data.split(',');
@@ -530,7 +522,6 @@
           $.post('backend_query.php', {skill_array_student: text,type: type}).done(function(data){
             //alert(data);
           });
-
           //alert(selected_items);
           $("#skill_type").val('none');
           $("#myinput").hide();

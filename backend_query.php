@@ -24,9 +24,10 @@
     $description = $_POST['description'];
     $wl = $_POST['wl'];
     $certificate = $_POST['certificate'];
+    // echo "function called";
+    // send_mail($id, $a_type, $description, $wl, $certificate);
     $q2 = "INSERT INTO achivements VALUES ($id,'$a_type','$description','$wl','$certificate');";
     $query2 = mysqli_query($conn,$q2);
-    send_mail($id, $a_type, $description, $wl, $certificate);
     echo $query2;
   }
   if(isset($_POST['something'])){
