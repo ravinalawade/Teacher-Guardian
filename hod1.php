@@ -34,7 +34,7 @@
                 width: 200px;
                 height: 200px;
                 /* margin-left: 80px; */
-                border-radius: 50%;
+                border-radius: 50%; 
             }
             .heading{
                 width: 220px;
@@ -128,12 +128,12 @@
                 color: #1F2833;
                 font-size: 24px;
             }
-            .result{
+            /* .result{
                 position: absolute;
                 z-index: 999;
                 top: 100%;
                 left: 0;
-            }
+            } */
             .search-box input[type="text"], .result{
                 width: 100%;
                 box-sizing: border-box;
@@ -146,7 +146,6 @@
                 border: 1px solid  #45A29E;
                 border-top: none;
                 cursor: pointer;
-                background:white;
             }
             .result p:hover{
                 background:  #45A29E;
@@ -163,8 +162,8 @@
                 border-bottom-left-radius: 25px;
             }
         </style>
-
-        <?php
+                
+        <?php 
             $servername="localhost";
             //add below line in every file. It displays error for all sql querries.
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -199,6 +198,8 @@
                 x.style.display = "block";
                 var y = document.getElementById("professor");
                 y.style.display = "none";
+                var z = document.getElementById("studSkills");
+                z.style.display = "none";
                 console.log(x);
             }
             function fprofessor() {
@@ -206,6 +207,8 @@
                 x.style.display = "block";
                 var y = document.getElementById("students");
                 y.style.display = "none";
+                var z = document.getElementById("studSkills");
+                z.style.display = "none";
                 console.log(x);
             }
             function skillstudents() {
@@ -229,64 +232,50 @@
 
             var selected_items=[];
 
-            // $(document).ready(function(){
-            //     alert($("#myinput").val());
-            //     $('#myinput').change( function(){
-            //         /* Get input value on change */
-            //         var inputVal = $(this).val();
-            //         alert(",,");
-            //         var resultDropdown = $(this).siblings(".result");
-            //         alert(inputVal);
-            //         if(inputVal.length){
-            //             $.get("backend-search.php", {term: inputVal}).done(function(data){
-            //                 // Display the returned data in browser
-            //                 alert(data);
-            //                 resultDropdown.html(data);
-            //             });
-            //         } else{
-            //             resultDropdown.empty();
-            //         }
-            //     });
+            $(document).ready(function(){
+                $('.search-box input[type="text"]').on("keyup input", function(){
+                    /* Get input value on change */
+                    var inputVal = $(this).val();
+                    var resultDropdown = $(this).siblings(".result");
+                    if(inputVal.length){
+                        $.get("backend-search.php", {term: inputVal}).done(function(data){
+                            // Display the returned data in browser
+                            resultDropdown.html(data);
+                        });
+                    } else{
+                        resultDropdown.empty();
+                    }
+                });
 
-            //     // Set search input value on click of result item
-            //     $(document).on("click", ".result p", function(){
-            //         //$(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-            //         //$(this).parent(".result").empty();
+                // Set search input value on click of result item
+                $(document).on("click", ".result p", function(){
+                    //$(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+                    //$(this).parent(".result").empty();
                     var text=$(this).text();
                     selected_items.push(text);
                     $("#selected").append('<div class="round_selected">'+text+'</div>');
                     $(this).parent(".result").empty();
                     $("#myinput").val('');
+                });
+            });
+
+            // $(document).ready(function(){
+            //     $("#my_button").click(function(){
+            //         alert (selected_items) ;
+            //         $.post('backend_query.php', {skill_array: selected_items}).done(function(data){
+            //         selected_items=[];
+            //         // alert (data);
+            //         // console.log(data);
+            //         // write code to display echoed statements.  variable data has all the returned echo values.
+            //         // $("#studSkills").append('<div>'+data+'</div>');
+            //         const skills = document.getElementById('studSkills');
+            //         var datarr = new Array();
+            //         datarr = data.split(',');
+            //         alert (datarr);
+                    
+            //         });
             //     });
             // });
-
-            //searchbox code
-      $(document).ready(function(){
-        $('.search-box input[type="text"]').on("keyup input", function(){
-          /* Get input value on change */
-          var inputVal = $(this).val();
-          var resultDropdown = $(this).siblings(".result");
-          if(inputVal.length){
-            $.get("backend-search.php", {term: inputVal}).done(function(data){
-              // Display the returned data in browser
-                resultDropdown.html(data);
-              });
-            }
-          else{
-            resultDropdown.empty();
-            }
-        });
-        // Set search input value on click of result item
-        $(document).on("click", ".result p", function(){
-        //$(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-        //$(this).parent(".result").empty();
-        var text=$(this).text();
-        selected_items.push(text);
-        $("#selected").append('<div class="round_selected">'+text+'</div>');
-        $(this).parent(".result").empty();
-        $("#myinput").val('');
-        });
-      });
 
             $(document).ready(function(){
                 $("#my_button").click(function(){
@@ -297,13 +286,13 @@
                     // console.log(data);
                     // write code to display echoed statements.  variable data has all the returned echo values.
                     // $("#studSkills").append('<div>'+data+'</div>');
-                   // const skills = document.getElementById('studSkills');
+                    const skills = document.getElementById('studSkills');
                     var datarr = new Array();
                     datarr = data.split(',');
                     // alert (datarr);
                     var j= datarr.length ;
                     while(j>0){
-                     $("#mt").append('<tr><td>'+datarr[j-7]+' '+datarr[j-6]+' '+datarr[j-5]+'</td><td>'+datarr[j-4]+'</td><td>'+datarr[j-3]+'</td><td>'+datarr[j-2]+'</td><td>'+datarr[j-1]+'</td></tr>');
+                      $("#mt").append('<tr><td>'+datarr[j-7]+' '+datarr[j-6]+' '+datarr[j-5]+'</td><td>'+datarr[j-4]+'</td><td>'+datarr[j-3]+'</td><td>'+datarr[j-2]+'</td><td>'+datarr[j-1]+'</td></tr>');
                       j=j-8;
                     }
                     //stuid8
@@ -339,7 +328,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <button onclick="fstudents()" class="btn btn-primary">Student</button>
-                                    <form name="selection" action="hod.php" method="post">
+                                    <form name="selection" action="hod1.php" method="post">
                                         <select name="Year">
                                             <option value="_">None</option>
                                             <option value="1">1</option>
@@ -357,9 +346,9 @@
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
-                                        </select>
+                                        </select>  
                                         <button type="submit" name="submit" onclick="fstudents()" class="submit">Submit</button>
-                                    </form>
+                                    </form> 
                                 </div>
                                 <div class="col-md-4">
                                     <button onclick="fprofessor()" class="btn btn-primary">Professor</button>
@@ -375,11 +364,10 @@
                                 </div>
                             </div>
                         </div>
-                        <script>// alert($("#myinput").val());</script>
                         <div class="container">
                             <div id="students">
                                 <table class="table">
-                                    <tbody>
+                                    <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>Date Of birth</th>
@@ -387,12 +375,14 @@
                                             <th>Division</th>
                                             <th>Batch</th>
                                         <tr>
-                                        <?php
+                                    </thead>
+                                    <tbody>
+                                        <?php 
                                             while($rows=mysqli_fetch_assoc($stud)){
                                             //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                                             echo('
                                             <tr class="clickrow" data-href="student_infohod.php?id='.$rows["student_id"].'">
-
+                            
                                                 <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                                                 <th>'.$rows["Date_of_birth"].'</th>
                                                 <th>'.$rows["Study_year"]. '</th>
@@ -406,20 +396,22 @@
                             </div>
                             <div id="professor" style="display:none;">
                                 <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Date Of birth</th>
+                                            <th>Year</th>
+                                            <th>Division</th>
+                                            <th>Batch</th>
+                                        <tr>
+                                    </thead>
                                     <tbody>
-                                        <tr>
-                                                <th>Name</th>
-                                                <th>Date Of birth</th>
-                                                <th>Year</th>
-                                                <th>Division</th>
-                                                <th>Batch</th>
-                                        <tr>
-                                        <?php
+                                        <?php 
                                         while($rows=mysqli_fetch_assoc($profess)){
                                             //echo $rows["FIrst"].' '.$rows["Middle"].' '.$rows["Last"];
                                             echo('
                                             <tr class="clickrow" data-href="teacher_info.php?id='.$rows["professor_id"].'">
-
+                            
                                                 <th>'.$rows["First"].' '.$rows["Middle"].' '.$rows["Last"] .'</th>
                                                 <th>'.$rows["Date_of_Birth"].'</th>
                                                 <th>'.$rows["Year"]. '</th>
@@ -431,7 +423,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="container" style="display:none;" id="studSkills">
+                            <div class="container" style="display: none;" id="studSkills">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -442,7 +434,7 @@
                                             <th>Batch</th>
                                         <tr>
                                     </thead>
-                                    <tbody id= 'mt' >
+                                    <tbody id="mt">
 
                                     </tbody>
                                 </table>

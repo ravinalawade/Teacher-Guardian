@@ -11,33 +11,54 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
         <style>
-            .col-md-3{
-                background-color: aqua;
-                height: 100%;
-                margin-left: 0;
-                position: fixed;
+            body{
+                background-color: #C5C6C7;
             }
-            .col-md-9{
-                margin-left: 25%;
+            .col-md-3{
+                background-color: #0B0C10;;
+                height: 100vh;
+                margin-left: 0;
+                padding: 10px;
+                position: sticky;
             }
             .thumbnail{
                 width: 200px;
                 height: 200px;
-                margin-left: 110px;
+                /* margin-left: 80px; */
+                border-radius: 50%; 
             }
-            .panel{
-                margin: 20px 10px 20px 10px;
-                height: 100%;
-                border: 5px solid #032970;
-                border-radius:5px;
-                transition: box-shadow 0.5s;
+            .heading{
+                width: 220px;
+                height: 220px;
+                margin: 20px 0 20px 55px;
+                background-color: #66FCF1;
+                border-radius: 100%;
+                padding: 10px;
             }
-            .panel-heading{
-                background-color: darkcyan !important;
+            .details{
+                color: #66FCF1;
+                font-size: 15px;
             }
-            .img-circle{
-                height: 200px;
-                width: 200px;
+            .jumbotron{
+                background-color: #1F2833;
+                color: #45A29E;
+                padding: 25px;
+                margin-top: 20px;
+                border-radius: 40px;
+
+            }
+            .table{
+                background-color: #1F2833;
+                color: #4FA29E;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }
+            thead{
+                background-color: #0B0C10;
+                color: #C5C6C7;
+            }
+            tr:hover{
+                background-color: #0B0C10;
+                color: #66FCF1;
             }
         </style>
 
@@ -63,7 +84,7 @@
 
             $id = $_SESSION["id"];
 
-            $q1 = "select * from professor natural join professor_email natural join prof_role natural join prof_address where professor_id = $id";
+            $q1 = "select * from professor natural join professor_email natural join prof_rol natural join prof_address where professor_id = $id";
 
             $query1 = mysqli_query($conn, $q1);
             $teacher = mysqli_fetch_assoc($query1);
@@ -71,32 +92,33 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3 text center">
-                    <div class="panel panel-default">
-                        <div class="panel-heading text-center">
-                            <img src="pratik.jpg" alt="pratik" class="img-circle">
-                        </div>
-                        <div class="panel-body">
-                            <h4><?php echo $teacher['First'].' '.$teacher['Middle'].' '.$teacher['Last']; ?></h4>
-                            <br>
-                            <h5>Date of Birth: <?php echo $teacher['Date_of_Birth']; ?></h5>
-                            <br>
-                            <h5>Email: <?php echo $teacher['Email_id']; ?></h5>
-                            <br>
-                            <h5>Role: <?php echo $teacher['Role']; ?></h5>
-                            <br>
-                            <h5>Year: <?php echo $teacher['Year']; ?></h5>
-                            <br>
-                            <h5>Division: <?php echo $teacher['Division']; ?></h5>
-                            <br>
-                            <h5>Batch: <?php echo $teacher['Batch']; ?></h5>
-                        </div>
+                    <div class="container text-center heading">
+                        <img src="contact.jpg" alt="pratik" class="thumbnail">
+                    </div>
+                    <div class="container details">
+                        <h4><?php echo $teacher['First'].' '.$teacher['Middle'].' '.$teacher['Last']; ?></h4>
+                        <br>
+                        <h5>Date of Birth: <?php echo $teacher['Date_of_Birth']; ?></h5>
+                        <br>
+                        <h5>Address: <?php echo $teacher['Location']; ?></h5>
+                        <br>
+                        <h5>Email: <?php echo $teacher['Email_id']; ?></h5>
+                        <br>
+                        <h5>Role: <?php echo $teacher['Role']; ?></h5>
+                        <br>
+                        <h5>Year: <?php echo $teacher['Year']; ?></h5>
+                        <br>
+                        <h5>Division: <?php echo $teacher['Division']; ?></h5>
+                        <br>
+                        <h5>Batch: <?php echo $teacher['Batch']; ?></h5>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="container text-center">
-                        <h2>Teacher Database</h2>
-                        <br><br>
-                        <table class="table table-hover">
+                        <div class="jumbotron text-center info">
+                            <h1>Student Details</h1>
+                        </div>
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -111,6 +133,7 @@
                             <tbody>
                                 <?php
                                     $id = $_SESSION['id'];
+                                    $q2 = "";
                                     if($teacher['Role']=='Incharge'){
                                         $q2 = "select * from students as s, 
                                                 (select Division, Year from prof_rol where professor_id = '$id') as p
@@ -118,7 +141,7 @@
                                     }
                                     else if($teacher['Role']=='Guardian'){
                                         $q2 = "select * from students as s,
-                                                ( select Division,Year,Batch from professor where professor_id = '$id') as p
+                                                ( select Division,Year,Batch from prof_rol where professor_id = '$id') as p
                                                 where s.Division = p.Division and Study_year = p.Year and s.Batch=p.Batch";
                                     }
                                     $query2 = mysqli_query($conn, $q2);

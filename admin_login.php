@@ -96,8 +96,8 @@
                 if($username=='admin1234@gmail.com' && $password==98765){
                     header("Location:admin_panel.php");
                 }
-                else if($username=='hod1234@gmail.com' && $password==2468){
-                    header("Location:hod.php");
+                else if($username=='hod1234@gmail.com' && $password==2463){
+                    header("Location:hod1.php");
                 }
                 else{
                     $q="select * from professor_email where Email_id='$username' and professor_id=$password";
@@ -105,19 +105,36 @@
                     $c=mysqli_num_rows($q1);
                     $q2  = "select Role from prof_rol where professor_id = $password";
                     $query = mysqli_query($conn, $q2);
+                    $teacher=mysqli_fetch_assoc($query);
                     $c1 = mysqli_num_rows($query);
                     $_SESSION["id"]=$password;
+                    
                     /*
                     $cb="select Division,Batch from professor where professor_id=$password";
                             $cb1=mysqli_query($conn,$cb);
                             $cb2=mysqli_fetch_assoc($cb1);
                             $_SESSION['Div']=$cb2['Division'];
                             $_SESSION['Bat']=$cb2['Batch'];*/
-                    if ($c==0){
-                        echo "incorrect username and password";
+                    if ($c==0 ){
+                        if($c1==0){
+                            $q3 = "select * from student_email where student_id=$password and Email='$username'";
+                            $qu3 = mysqli_query($conn, $q3);
+                            $c2 = mysqli_num_rows($qu3);
+                            if($c2!=0)
+                                header("Location:student_form.php");
+                            else
+                                echo "<script> alert('incorrect username and password'); </script>";
+                        }
+                        else
+                        echo "<script> alert('incorrect username and password'); </script>";
                     }
                     else if($c1==1){
-                        header("Location:teacher2.php");
+                        if ($teacher["Role"]=="Guardian"){
+                            echo $teacher["Role"];
+                            header("Location:teacher2.php");
+                        }
+                        else
+                            header("Location:teacher3.php");
                     }
                     else{
                         header("Location:teacher.php?pass=$password");
