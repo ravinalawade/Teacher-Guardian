@@ -393,7 +393,7 @@
               </div> -->
               <form method="POST" action="student_form.php">
                 <div class="form-group">
-                    <label for="a_type">Type of Achievement:</label>
+                    <label for="type">Type of Achievement:</label>
                     <input type="radio" name="a_type" value="T">Technical
                     <input type="radio" name="a_type" value="NT">Non Technical
                 </div>
@@ -402,7 +402,7 @@
                     <textarea name="description" rows="5" cols="50" > </textarea>
                 </div>
                 <div class="form-group">
-                    <label for="wl">Won/Participation:</label>
+                    <label for="participate">Won/Participation:</label>
                     <input type="radio" name="wl" value="W" >Won
                     <input type="radio" name="wl" value="P">Participation
                 </div>
@@ -475,6 +475,7 @@
           type = $("#skill_type").val();
           $("#myinput").show();
           $("#my_button").show();
+          //console.log(type);
         })
       });
       //searchbox code
@@ -519,6 +520,7 @@
             }
           }
           $("#myinput").val('');
+          //alert(type);
           $.post('backend_query.php', {skill_array_student: text,type: type}).done(function(data){
             //alert(data);
           });
@@ -530,9 +532,10 @@
       });
       $(document).ready(function(){
         $("#my_ach_button").click(function(){
-            var a_type = $("[name = 'a_type']").val();
+            var a_type = $("input[name = 'a_type']:checked").val();
+            alert(a_type);
             var description = $("[name = 'description']").val();
-            var wl = $("[name = 'wl']").val();
+            var wl = $("input[name = 'wl']:checked").val();
             var certificate = $("[name = 'certificate']").val();
             if(!(a_type && description && wl && certificate)){
               alert("cannot leave blank fields");

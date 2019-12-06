@@ -10,9 +10,10 @@
   //skills
   if(isset($_POST['skill_array_student'])){
     $s = $_POST['skill_array_student'];
+    $ty=$_POST['type'];
     //$q1 = "INSERT INTO skills VALUES ($id,'t','$s');";
     $q1 = "INSERT INTO skills (student_id,Type,Skill_name)
-          SELECT $id,'t','$s'
+          SELECT $id,'$ty','$s'
           from dual
           WHERE NOT EXISTS (SELECT * from skills where Skill_name = '$s' and student_id = $id) ;";
     $query1 = mysqli_query($conn,$q1);
